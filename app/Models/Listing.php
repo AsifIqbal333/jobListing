@@ -36,7 +36,11 @@ class Listing extends Model
         
     // }
 
-    public function scopeFilter(){
+    public function scopeFilter($query, array $filters){
         
+        //if tag contains a value
+        if($filters['tag'] ?? false){
+            $query->where('tags', 'like', '%'. $filters['tag'] . '%');
+        }
     }
 }
