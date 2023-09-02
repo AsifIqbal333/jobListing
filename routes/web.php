@@ -19,9 +19,16 @@ use App\Models\Listing;
 |
 */
 
-// Get all listings
+// All listings
 Route::get('/', [ListingController::class, 'index']);
 
-// find specific listing
+//show create listing form
+Route::get('/listings/create', [ListingController::class, 'create'])->name('listings.create');
 
-Route::get('listings/{listing}', [ListingController::class, 'show']);
+//store the new listing
+Route::post('/listings', [ListingController::class, 'store'])->name('listings.store');
+
+//show single listing
+Route::get('/listings/{listing}', [ListingController::class, 'show']);
+
+
