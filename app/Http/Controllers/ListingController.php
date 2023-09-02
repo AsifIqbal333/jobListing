@@ -29,7 +29,6 @@ class ListingController extends Controller
 
     //show create form
     public function store(Request $request){
-        //dd($request->all());
         $formFields = $request->validate([
             'title'         =>  'required',
             'company'       =>  ['required',Rule::unique('listings','company')],
@@ -39,8 +38,9 @@ class ListingController extends Controller
             'tags'          =>  'required',
             'description'   =>  'required' 
         ]);
-        //return view('listings.c');
-        redirect('/');
+
+        Listing::create($formFields);
+        return redirect('/');
     }
 
 }
