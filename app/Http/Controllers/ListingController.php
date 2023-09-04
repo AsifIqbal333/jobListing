@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Listing;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
 class ListingController extends Controller
@@ -29,6 +30,7 @@ class ListingController extends Controller
 
     //show create form
     public function store(Request $request){
+        
         $formFields = $request->validate([
             'title'         =>  'required',
             'company'       =>  ['required',Rule::unique('listings','company')],
@@ -39,7 +41,15 @@ class ListingController extends Controller
             'description'   =>  'required' 
         ]);
 
+        if($request->hasFile('logo')){
+            //dd($request->file('logo'));    
+            $formFields['logo'] = $request->file('logo')->store('logos','public');
+        }
+        
+        //DB::enableQueryLog();
         Listing::create($formFields);
+        // $query = DB::getQueryLog();
+        // dd($query);
         return redirect('/')->with('message', 'Listing created Successfully!');
     }
 
