@@ -21,7 +21,7 @@
             alt=""
         />
 
-        <h3 class="text-2xl mb-2">{{ $listing['title'] }}</h3>
+        <h3 class="text-2xl mb-2">{{ $listing->title }}</h3>
         <div class="text-xl font-bold mb-4">{{ $listing['company'] }}</div>
         <ul class="flex">
             @foreach ($tags as $tag)        
@@ -31,7 +31,7 @@
             @endforeach
         </ul>
         <div class="text-lg my-4">
-            <i class="fa-solid fa-location-dot"></i> {{ $listing['location'] }}
+            <i class="fa-solid fa-location-dot"></i> {{ $listing->location }}
         </div>
         <div class="border border-gray-200 w-full mb-6"></div>
         <div>
@@ -40,22 +40,28 @@
             </h3>
             <div class="text-lg space-y-6">
                 <p>
-                    {{ $listing['description'] }}
+                    {{ $listing->description }}
                 </p>
                 
                 <a
-                    href="{{ $listing['email'] }} "
+                    href="{{ $listing->email }} "
                     class="block bg-laravel text-white mt-6 py-2 rounded-xl hover:opacity-80"
                     ><i class="fa-solid fa-envelope"></i>
                     Contact Employer</a
                 >
 
                 <a
-                    href="{{ $listing['website'] }}"
+                    href="{{ $listing->website }}"
                     target="_blank"
                     class="block bg-black text-white py-2 rounded-xl hover:opacity-80"
                     ><i class="fa-solid fa-globe"></i> Visit
                     Website</a
+                >
+                <a
+                    href="{{ route('listings.edit', ['listing' => $listing->id]) }}"
+                    target="_blank"
+                    class="block bg-black text-white py-2 rounded-xl hover:opacity-80"
+                    ><i class="fa-solid fa-globe"></i>Edit</a
                 >
             </div>
         </div>

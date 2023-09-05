@@ -9,7 +9,7 @@ use Illuminate\Validation\Rule;
 
 class ListingController extends Controller
 {
-    //show all listings
+    //Show All Listings
     public function index(){
         $data = [
             'listings'  =>  Listing::latest()->filter(request(['tag','search']))->paginate(4)
@@ -17,18 +17,18 @@ class ListingController extends Controller
         return view('listings.index', $data);
     }
     
-    //show single listing
+    //Show Listing
     public function show(Listing $listing){
         $data = ['listing' => $listing];
         return view('listings.show', $data);
     }
 
-    //show create form
+    //Show Create form
     public function create(){
         return view('listings.create');
     }
 
-    //show create form
+    //Store Listing
     public function store(Request $request){
         
         $formFields = $request->validate([
@@ -52,5 +52,38 @@ class ListingController extends Controller
         // dd($query);
         return redirect('/')->with('message', 'Listing created Successfully!');
     }
+
+    //Show Edit Form
+    public function edit(Listing $listing){
+        //dd($listing->description);
+        $data = ['listing' => $listing];
+        return view('listings.edit', $data);
+    }
+    
+    //Update Listing
+    public function update(Request $request,Listing $listing){
+        
+        $formFields = $request->validate([
+            'title'         =>  'required',
+            'company'       =>  'required',
+            'location'      =>  'required',
+            'website'       =>  'required',
+            'email'         =>  ['required','email'],
+            'tags'          =>  'required',
+            'description'   =>  'required' 
+        ]);
+
+        if($request->hasFile('logo')){
+            //dd($request->file('logo'));    
+            $formFields['logo'] = $request->file('logo')->store('logos','public');
+        }
+        
+        //DB::enableQueryLog();
+        $listing->update($formFields);
+        // $query = DB::getQueryLog();
+        // dd($query);
+        return redirect('/')->with('message', 'Listing updated Successfully!');
+    }
+
 
 }

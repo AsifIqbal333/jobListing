@@ -22,13 +22,19 @@ use App\Models\Listing;
 // All listings
 Route::get('/', [ListingController::class, 'index']);
 
-//show create listing form
+//Show Create Form
 Route::get('/listings/create', [ListingController::class, 'create'])->name('listings.create');
 
-//store the new listing
+//Store Listing
 Route::post('/listings', [ListingController::class, 'store'])->name('listings.store');
 
-//show single listing
+//Show Edit Form
+Route::get('/listings/{listing}/edit', [ListingController::class, 'edit'])->name('listings.edit');
+
+//Update Listing
+Route::put('/listings/{listing}', [ListingController::class, 'update'])->name('listings.update');
+
+//show Single listing
 Route::get('/listings/{listing}', [ListingController::class, 'show']);
 
 
