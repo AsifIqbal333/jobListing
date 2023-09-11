@@ -63,6 +63,11 @@
                     class="block bg-black text-white py-2 rounded-xl hover:opacity-80"
                     ><i class="fa-solid fa-globe"></i>Edit</a
                 >
+                <form method="POST" action="{{ route('listings.destroy', ['listing' => $listing->id]) }}">
+                    @csrf
+                    @method('DELETE')
+                    <button class="text-red-500"><i class="fa-solid fa-trash">Delete</i></button>
+                </form>
             </div>
         </div>
     </div>
