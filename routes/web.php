@@ -6,6 +6,7 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Listing;
 /*
@@ -18,6 +19,14 @@ use App\Models\Listing;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+
+/*
+|--------------------------------------------------------------------------
+| Listing Routes
+|--------------------------------------------------------------------------
+*/
+
 
 // All listings
 Route::get('/', [ListingController::class, 'index']);
@@ -41,4 +50,15 @@ Route::delete('/listings/{listing}', [ListingController::class, 'destroy'])->nam
 Route::get('/listings/{listing}', [ListingController::class, 'show']);
 
 
+/*
+|--------------------------------------------------------------------------
+| User Routes
+|--------------------------------------------------------------------------
+*/
+
+//Show Register/create form
+Route::get('/register', [UserController::class, 'create']);
+
+//Store Listing
+Route::post('/users', [UserController::class, 'store'])->name('users.store');
 
