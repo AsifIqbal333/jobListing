@@ -62,3 +62,6 @@ Route::get('/register', [UserController::class, 'create']);
 //Store Listing
 Route::post('/users', [UserController::class, 'store'])->name('users.store');
 
+//User logout
+Route::post('/logout', [UserController::class, 'logout']);
+
