@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Listing extends Model
 {
-    protected $fillable = ['title','company','location','website','email','tags','description','logo'];
+    protected $fillable = ['user_id','title','company','location','website','email','tags','description','logo'];
+    
     use HasFactory;
 
     // public static function data(){
@@ -50,5 +52,16 @@ class Listing extends Model
             ->orWhere('description', 'like', '%'. $filters['search'] . '%')
             ->orWhere('tags', 'like', '%'. $filters['search'] . '%');
         }
+    }
+
+    //Relationship to user
+    public function user(){
+        // we dont need to define foreign key name because it will pick
+        //automatically because of the naming conventions
+        //return $this->belongsTo(User::class,'user_id');
+        
+        //Without defining foreign key name
+        return $this->belongsTo(User::class,'user_id');
+
     }
 }

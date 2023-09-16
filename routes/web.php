@@ -66,7 +66,7 @@ Route::post('/users', [UserController::class, 'store'])->name('users.store');
 Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
 
 //show login form
-Route::get('/login', [UserController::class,'login'])->name('login')->middleware('auth');
+Route::get('/login', [UserController::class,'login'])->name('login')->middleware('guest');
 
 //Log In User
 Route::post('/users/authenticate', [UserController::class,'authenticate']);

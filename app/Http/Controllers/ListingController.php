@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Listing;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
@@ -45,9 +46,12 @@ class ListingController extends Controller
             //dd($request->file('logo'));    
             $formFields['logo'] = $request->file('logo')->store('logos','public');
         }
-        
+
         //DB::enableQueryLog();
-        Listing::create($formFields);
+
+        $user = User::find(auth()->id()); 
+        $user->listings()->create($formFields);
+
         // $query = DB::getQueryLog();
         // dd($query);
         return redirect('/')->with('message', 'Listing created Successfully!');
