@@ -57,7 +57,7 @@
                     ><i class="fa-solid fa-globe"></i> Visit
                     Website</a
                 >
-                <a
+                {{-- <a
                     href="{{ route('listings.edit', ['listing' => $listing->id]) }}"
                     target="_blank"
                     class="block bg-black text-white py-2 rounded-xl hover:opacity-80"
@@ -67,7 +67,7 @@
                     @csrf
                     @method('DELETE')
                     <button class="text-red-500"><i class="fa-solid fa-trash">Delete</i></button>
-                </form>
+                </form> --}}
             </div>
         </div>
     </div>

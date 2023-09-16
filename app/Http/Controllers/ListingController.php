@@ -48,10 +48,8 @@ class ListingController extends Controller
         }
 
         //DB::enableQueryLog();
-
         $user = User::find(auth()->id()); 
         $user->listings()->create($formFields);
-
         // $query = DB::getQueryLog();
         // dd($query);
         return redirect('/')->with('message', 'Listing created Successfully!');
@@ -86,15 +84,21 @@ class ListingController extends Controller
         $listing->update($formFields);
         // $query = DB::getQueryLog();
         // dd($query);
-        return redirect('/')->with('message', 'Listing updated Successfully!');
+        return redirect(route('listings.manage'))->with('message', 'Listing updated Successfully!');
     }
 
     //Delete Listing
-
     public function destroy(Listing $listing){
         $listing->delete();
-        return redirect('/')->with('message', 'Listing deleted Successfully!');
+        return back()->with('message', 'Listing deleted Successfully!');
 
+    }
+
+    //Manage Listings
+    public function manage(){
+        $user = User::find(auth()->id());
+        $data = ['listings' => $user->listings];
+        return view('listings.manage', $data);
     }
 
 
