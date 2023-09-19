@@ -57,6 +57,11 @@ class ListingController extends Controller
 
     //Show Edit Form
     public function edit(Listing $listing){
+
+        if($listing->user_id != auth()->id()){
+            abort(403,'Unauthorized Action');
+        }
+
         //dd($listing->description);
         $data = ['listing' => $listing];
         return view('listings.edit', $data);
@@ -65,6 +70,12 @@ class ListingController extends Controller
     //Update Listing
     public function update(Request $request,Listing $listing){
         
+        //Restrict the user to only update his own listings not
+        //and other users listings
+        if($listing->user_id != auth()->id()){
+            abort(403,'Unauthorized Action');
+        }
+
         $formFields = $request->validate([
             'title'         =>  'required',
             'company'       =>  'required',
@@ -89,6 +100,10 @@ class ListingController extends Controller
 
     //Delete Listing
     public function destroy(Listing $listing){
+        
+        if($listing->user_id != auth()->id()){
+            abort(403,'Unauthorized Action');
+        }
         $listing->delete();
         return back()->with('message', 'Listing deleted Successfully!');
 
